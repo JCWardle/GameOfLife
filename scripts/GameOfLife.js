@@ -1,16 +1,21 @@
 var grid = [];
 var game;
+var cellHeight;
+var cellWidth;
 
 window.onload = function()
 {
     game = document.getElementById("game");
     
-    cellColumns= game.width/100;
-    cellRows = game.height/100;
+    x = 8;
+    y = 6;
     
-    for(var i = 0; i < cellRows; i++){
+    cellWidth = game.width/x;
+    cellHeight = game.height/y;
+    
+    for(var i = 0; i < game.width/cellWidth; i++){
         grid[i] = [];
-        for(var j = 0; j < cellColumns; j++){
+        for(var j = 0; j < game.height/cellHeight; j++){
             grid[i][j] = {};
         }
     }
@@ -34,8 +39,8 @@ function drawGrid(){
     context.strokeStyle = "Black";
     context.lineWidth = 3;
     for(var i = 0; i <= grid.length; i++){
-        context.rect(0, (i + 1) * 100, game.width, 2);
-        context.rect((i + 1) * 100, 0, 2, game.height);
+        context.rect(0, (i + 1) * cellHeight, game.width, 2);
+        context.rect((i + 1) * cellWidth, 0, 2, game.height);
     }
     context.stroke();
 }
