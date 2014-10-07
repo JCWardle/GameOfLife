@@ -9,8 +9,8 @@ window.onload = function()
     
     game.addEventListener("mousedown", click, false);
     
-    var x = 2;
-    var y = 2;
+    var x = 8;
+    var y = 6;
     
     cellWidth = game.width/x;
     cellHeight = game.height/y;
@@ -47,8 +47,8 @@ function drawGrid(){
     context.lineWidth = 2;
     
     for(var i = 0; i < grid.length; i++){
-        context.rect(0, (i + 1) * cellHeight, game.width, 2);
-        context.rect((i + 1) * cellWidth, 0, 2, game.height);
+        context.rect(0, (i + 1) * cellHeight - 1, game.width, 2);
+        context.rect((i + 1) * cellWidth - 1, 0, 2, game.height);
         
         for(var j = 0; j < grid[i].length; j++){
             if(grid[i][j] === true){
@@ -65,9 +65,9 @@ function drawGrid(){
 }
 
 function click(event){
-    var column = Math.floor(event.pageX/cellWidth);
-    var row = Math.floor(event.pageY/cellHeight);
-    
+    var column = Math.floor(event.offsetX/cellWidth);
+    var row = Math.floor(event.offsetY/cellHeight);
+
     grid[column][row] = !grid[column][row];
     drawGrid();
 }
