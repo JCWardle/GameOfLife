@@ -71,3 +71,47 @@ function click(event){
     grid[column][row] = !grid[column][row];
     drawGrid();
 }
+
+function update(){
+    var gridWidth = grid.length;
+    var gridHeight = grid[0].length;
+    var gridCopy = JSON.parse(JSON.stringify(grid));
+
+    for(var i = 0; i < gridWidth; i++){
+        for(var j = 0; j < gridHeight; j++){
+            var neighbours = getNeighbours(gridCopy, i, j);
+            
+            if(gridCopy[i][j] === true && (neighbours < 2 || neighbours > 3)){
+                grid[i][j] = false;
+            } else if (gridCopy[i][j] === false && neighbours == 3){
+                grid[i][j] = true;
+            }
+        }
+    }
+}
+
+function getNeighbours(gridCopy, x, y){
+    result = 0;
+    
+    for(var i = -1; i < 2; i++){
+        if(x + i < 0 || x + i >= gridCopy.length)
+            continue;
+        for(var j = -1; j < 2; j++){
+            if(y + j < 0 || y + j >= gridCopy[0].length || (i == 0 && j == 0))
+                continue;
+            
+            if(gridCopy[x + i][y + j] === true)
+                result++;
+        }        
+    }
+    return result;
+}
+
+function start(){
+    update();
+    drawGrid();
+}
+
+function stop (){
+
+}
