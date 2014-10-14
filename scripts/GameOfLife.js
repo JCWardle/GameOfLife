@@ -5,25 +5,7 @@ var cellWidth;
 
 window.onload = function()
 {
-    game = document.getElementById("game");
-    
-    game.addEventListener("mousedown", click, false);
-    
-    var x = 8;
-    var y = 6;
-    
-    cellWidth = game.width/x;
-    cellHeight = game.height/y;
-    
-    for(var i = 0; i < game.width/cellWidth; i++){
-        grid[i] = [];
-        for(var j = 0; j < game.height/cellHeight; j++){
-            grid[i][j] = false;
-        }
-    }
-    
-    drawBorder();
-    drawGrid();
+    createGame(8, 6);
 }
 
 function drawBorder(){
@@ -37,6 +19,25 @@ function drawBorder(){
     context.rect(game.width, 0, 1, game.height);
     context.stroke();
     context.closePath();
+}
+
+function createGame(rows, columns){
+    game = document.getElementById("game");
+    
+    game.addEventListener("mousedown", click, false);
+    
+    cellWidth = game.width/rows;
+    cellHeight = game.height/columns;
+    
+    for(var i = 0; i < game.width/cellWidth; i++){
+        grid[i] = [];
+        for(var j = 0; j < game.height/cellHeight; j++){
+            grid[i][j] = false;
+        }
+    }
+    
+    drawBorder();
+    drawGrid();
 }
 
 function drawGrid(){
@@ -112,6 +113,16 @@ function start(){
     drawGrid();
 }
 
-function stop (){
-
+function setSize(){
+    game.width = document.getElementById("x").value;
+    game.height = document.getElementById("y").value;
+    var rows = document.getElementById("rows").value;
+    var columns = document.getElementById("columns").value;
+    
+    if (rows == "")
+        rows = 2;
+    if (columns == "")
+        columns = 2;
+ 
+    createGame(rows, columns);
 }
